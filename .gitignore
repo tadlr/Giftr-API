@@ -1,6 +1,5 @@
 .DS_Store
 node_modules/
-.env
 .env.development
 .env.production
 mongopass.txt

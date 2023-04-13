@@ -14,16 +14,17 @@ const sanitizeBody = require("./middleware/sanitizeBody");
 // TODO: import helmet
 // TODO: import cors
 
-const pokemonRouter = require("./router/pokemon"); // TODO: change to /people router
-const { errorHandler } = require("./utils/errors");
-const authRouter = require("./router/auth");
+const pokemonRouter = require('./router/pokemon'); // TODO: change to /people router
+const { errorHandler } = require('./utils/errors');
+const authRouter = require('./router/auth');
 
-require("./utils/db");
+require('./utils/db');
 
 const app = express();
 
 app.use(express.json());
-app.use(morgan("tiny"));
+app.use(morgan('tiny'));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -36,5 +37,5 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
+	console.log(`App listening on port ${PORT}`);
 });
