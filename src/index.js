@@ -6,8 +6,13 @@ const MongoStore = require("connect-mongo");
 const morgan = require("morgan");
 const passport = require("passport");
 const session = require("express-session");
+// TODO: install the following modules
+// TODO: import helmet
+// TODO: import cors
+// TODO: import xss
+// TODO: import jsonwebtoken
 
-const pokemonRouter = require("./router/pokemon");
+const pokemonRouter = require("./router/pokemon"); // TODO: change to /people router
 const { errorHandler } = require("./utils/errors");
 const authRouter = require("./router/auth");
 
@@ -30,13 +35,13 @@ app.use(
       mongoUrl: process.env.MONGO_URL,
     }),
   })
-);
+); // TODO: see WEEK 14 repo for changes - SESSION_SECRET will be replaced by JWT
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", (_req, res) => res.send("Server running"));
 app.use("/auth", authRouter);
-app.use("/api/pokemon", pokemonRouter);
+app.use("/api/pokemon", pokemonRouter); //TODO: change/reformat to people router // TODO: import sanitizeBody middleware from week14 albatrooss
 
 app.use(errorHandler);
 
