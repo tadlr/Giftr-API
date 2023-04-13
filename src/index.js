@@ -14,28 +14,29 @@ const sanitizeBody = require("./middleware/sanitizeBody");
 // TODO: import helmet
 // TODO: import cors
 
-const pokemonRouter = require('./router/pokemon'); // TODO: change to /people router
-const { errorHandler } = require('./utils/errors');
-const authRouter = require('./router/auth');
+const peopleRouter = require("./router/people");
+const giftsRouter = require("./router/gifts");
+const { errorHandler } = require("./utils/errors");
+const authRouter = require("./router/auth");
 
-require('./utils/db');
+require("./utils/db");
 
 const app = express();
 
 app.use(express.json());
-app.use(morgan('tiny'));
-
+app.use(morgan("tiny"));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", (_req, res) => res.send("Server running"));
 app.use("/auth", authRouter);
-app.use("/api/pokemon", sanitizeBody, pokemonRouter); //TODO: change/reformat to people router // TODO: import sanitizeBody middleware from week14 albatrooss
+app.use("/api/people", sanitizeBody, peopleRouter);
+app.use("/api/people/:id", sanitizeBody, giftsRouter);
 
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-	console.log(`App listening on port ${PORT}`);
+  console.log(`App listening on port ${PORT}`);
 });
