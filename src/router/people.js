@@ -1,7 +1,7 @@
 "use strict";
 
 const { Router } = require("express");
-// const PeopleController = require("../controllers/People");
+const PeopleController = require("../controllers/people");
 const isAuthenticated = require("../middleware/isAuthenticated");
 
 const PeopleRouter = Router();

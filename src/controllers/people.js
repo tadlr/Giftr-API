@@ -20,8 +20,8 @@ const getOne = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const { name, type, abilities } = req.body;
-    const createdPeople = await PeopleService.create(name, type, abilities);
+    const { name, dob } = req.body; //TODO: Ask how to get the ownerId
+    const createdPeople = await PeopleService.create(name, dob, req.user._id);
     res.status(201).json({ data: createdPeople });
   } catch (error) {
     next(error);

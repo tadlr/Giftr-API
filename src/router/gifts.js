@@ -1,7 +1,7 @@
 "use strict";
 
 const { Router } = require("express");
-// const GiftsController = require("../controllers/Gifts");
+const GiftsController = require("../controllers/gifts");
 
 const GiftsRouter = Router();
 
