@@ -21,6 +21,7 @@ const getOne = async (req, res, next) => {
 const create = async (req, res, next) => {
   try {
     const { name, dob } = req.body; //TODO: Ask how to get the ownerId
+    // refactor to match code Tim wrote in April 13 class
     const createdPeople = await PeopleService.create(name, dob, req.user._id);
     res.status(201).json({ data: createdPeople });
   } catch (error) {
