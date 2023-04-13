@@ -2,5 +2,6 @@
 node_modules/
 .env.development
 .env.production
+.env
 mongopass.txt
 *.todo.md

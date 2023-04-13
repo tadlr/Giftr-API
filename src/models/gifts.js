@@ -13,7 +13,7 @@ const giftsSchema = new Schema({
     type: String,
     required: true,
   },
-  gifts: [Gift], // TODO: Ask why this is required.
+  // gifts: [giftsSchema], // TODO: Ask why this is required.
 });
 
 module.exports = model("gifts", giftsSchema);

@@ -1,5 +1,5 @@
-const { Schema, model } = require("mongoose");
-const Gift = require("./gifts");
+const { Schema, model, mongoose } = require("mongoose");
+const giftsSchema = require("./gifts");
 
 const personSchema = new Schema(
   {
@@ -12,12 +12,12 @@ const personSchema = new Schema(
       required: true,
     },
     ownerId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
       default: "", //TODO: Ask about default user.
     },
-    gifts: [Gift],
+    gifts: [],
   },
   {
     timestamps: true,
