@@ -76,3 +76,31 @@ Using Node.js, Express, Mongoose and MongoDB, you will build the RESTful API web
 ```
 
 ## Auth Routes
+
+
+
+# In class review
+
+- when doing a getAll, do not return the gifts
+- only return gifts on getOne
+
+- giftrouter
+  "/gifts"
+  "/gifts/:id"
+
+  middleware takes require personId = req.params.id
+  next()
+
+- bring in compression module into index.js (with other security modules) 
+
+~~~
+ownerId: {
+  type: Schema.Types.ObjectId,
+  required: true,
+  ref: 'user'
+}
+~~~
+
+`const { _id: ownerId } = req.user;`
+
+- use req.sanitizedBody in controllers instead of req.body
