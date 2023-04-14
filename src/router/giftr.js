@@ -1,18 +1,28 @@
-"use strict";
+'use strict';
 
-const { Router } = require("express");
-const PeopleController = require("../controllers/people");
-const isAuthenticated = require("../middleware/isAuthenticated");
+const { Router } = require('express');
+const PeopleController = require('../controllers/people');
+const GiftsController = require('../controllers/gifts');
+const isAuthenticated = require('../middleware/isAuthenticated');
 
-const PeopleRouter = Router();
+const GiftrRouter = Router();
 
 /*** It checks that the user is logged-in, ***/
-PeopleRouter.use(isAuthenticated);
-PeopleRouter.get("/", PeopleController.getAll);
-PeopleRouter.get("/:id", PeopleController.getOne);
-PeopleRouter.post("/", PeopleController.create);
-PeopleRouter.put("/:id", PeopleController.replace);
-PeopleRouter.patch("/:id", PeopleController.update);
-PeopleRouter.delete("/:id", PeopleController.deleteOne);
+/*** People routes ***/
+GiftrRouter.use(isAuthenticated);
+GiftrRouter.get('/', PeopleController.getAll);
+GiftrRouter.get('/:id', PeopleController.getOne);
+GiftrRouter.post('/', PeopleController.create);
+GiftrRouter.put('/:id', PeopleController.replace);
+GiftrRouter.patch('/:id', PeopleController.update);
+GiftrRouter.delete('/:id', PeopleController.deleteOne);
 
-module.exports = PeopleRouter;
+/* Gift routes */
+GiftrRouter.get('/:id/gifts', GiftsController.getAll);
+GiftrRouter.get('/:id/gifts/:giftId', GiftsController.getOne);
+// GiftrRouter.post("/person/:id/gifts", GiftsController.create);
+// GiftrRouter.put("/:id", GiftsController.replace);
+// GiftrRouter.patch("/:id", GiftsController.update);
+// GiftrRouter.delete("/:id", GiftsController.deleteOne);
+
+module.exports = GiftrRouter;
