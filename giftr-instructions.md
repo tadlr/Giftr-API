@@ -77,7 +77,25 @@ Using Node.js, Express, Mongoose and MongoDB, you will build the RESTful API web
 
 ## Auth Routes
 
+Action Method Resource Path
+Authenticate User GET /auth/google?redirect_url
+Accept google response GET /auth/google/callback
+Logout User GET /auth/logout
 
+## API Routes
+
+- [ ] Access to routes relating to creating, updating or deleting gift ideas for a particular Person object will be limited to authenticated users who are either the owner or in the sharedWith list for that Person.
+- [ ] Deleting a Person object will be restricted exclusively to its owner.
+
+### Person Routes
+
+Action Method Resource Path Notes
+List all people GET /api/people Gift ideas not populated
+Get details for a person GET /api/people/:id Gift ideas fully populated
+Create a person POST /api/people
+Replace a person PUT /api/people/:id Only the owner
+Update a person PATCH /api/people/:id Only the owner
+Remove a person DELETE /api/people/:id Only the owner
 
 # In class review
 
@@ -91,15 +109,15 @@ Using Node.js, Express, Mongoose and MongoDB, you will build the RESTful API web
   middleware takes require personId = req.params.id
   next()
 
-- bring in compression module into index.js (with other security modules) 
+- bring in compression module into index.js (with other security modules)
 
-~~~
+```
 ownerId: {
   type: Schema.Types.ObjectId,
   required: true,
   ref: 'user'
 }
-~~~
+```
 
 `const { _id: ownerId } = req.user;`
 

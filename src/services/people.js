@@ -1,54 +1,49 @@
 "use strict";
 
-const People = require("../models/person");
+const Person = require("../models/person");
 const { BadRequestError, NotFoundError } = require("../utils/errors");
 
 const getAll = async () => {
-  const people = await People.find();
+  const people = await Person.find({ ownerId });
   return people;
 };
 
 const getOne = async (id) => {
-  const foundPeople = await People.findById(id);
-  if (!foundPeople) throw new NotFoundError(`People with id ${id} not found`);
-  return foundPeople;
+  const foundPerson = await Person.findById(id);
+  if (!foundPerson) throw new NotFoundError(`Person with id ${id} not found`);
+  return foundPerson;
 };
 
-const create = async (name, dob, ownerId, gifts = []) => {
-  const newPeople = new People({
-    name,
-    dob,
-    ownerId,
-    gifts,
-  });
-  await newPeople.save();
-  return newPeople;
+const create = async (personData) => {
+  const newPerson = new Person(personData);
+  await newPerson.save();
+  return newPerson;
 };
 
-const replace = async (id, peopleData) => {
-  if (!peopleData.name || !peopleData.type || !peopleData.abilities)
-    throw new BadRequestError("Name, Type and Abilities are required");
+const replace = async (id, personData) => {
+  if (!personData.name || !personData.dob)
+    throw new BadRequestError("Name and Date Of Birth (dob) are required");
 
-  const replacedPeople = await People.findByIdAndUpdate(
+  const replacedPerson = await Person.findByIdAndUpdate(
     id,
     {
-      ...peopleData,
+      ...personData,
     },
     {
       returnOriginal: false,
     }
   );
 
-  if (!replacedPeople)
-    throw new NotFoundError(`People with id ${id} not found`);
+  if (!replacedPerson)
+    throw new NotFoundError(`Person with id ${id} not found`);
 
-  return replacedPeople;
+  return replacedPerson;
 };
 
 const update = async (id, updatedFields) => {
   if (!Object.keys(updatedFields).length)
     throw new BadRequestError("Nothing to update");
-  const updatedPeople = await People.findByIdAndUpdate(
+  const updatedPerson = await Person.findByIdAndUpdate(
     id,
     {
       ...updatedFields,
@@ -58,17 +53,17 @@ const update = async (id, updatedFields) => {
     }
   );
 
-  if (!updatedPeople) throw new NotFoundError(`People with id ${id} not found`);
+  if (!updatedPerson) throw new NotFoundError(`Person with id ${id} not found`);
 
-  return updatedPeople;
+  return updatedPerson;
 };
 
 const deleteOne = async (id) => {
-  const deletedPeople = await People.findByIdAndDelete(id);
+  const deletedPerson = await Person.findByIdAndDelete(id);
 
-  if (!deletedPeople) throw new NotFoundError(`People with id ${id} not found`);
+  if (!deletedPerson) throw new NotFoundError(`Person with id ${id} not found`);
 
-  return deletedPeople;
+  return deletedPerson;
 };
 
 module.exports = {

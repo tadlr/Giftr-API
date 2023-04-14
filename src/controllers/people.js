@@ -21,9 +21,9 @@ const getOne = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const { name, dob } = req.body; //TODO: Ask how to get the ownerId
-
+    const { name, dob } = req.sanitizedBody;
     const { _id: ownerId } = req.user;
+
     const createdPeople = await PeopleService.create({ name, dob, ownerId });
 
     res.status(201).json({ data: createdPeople });
@@ -53,8 +53,8 @@ const update = async (req, res, next) => {
 
 const deleteOne = async (req, res, next) => {
   try {
-    const deletedpeople = await PeopleService.deleteOne(req.params.id);
-    res.json({ data: deletedpeople });
+    const deletedperson = await PeopleService.deleteOne(req.params.id);
+    res.json({ data: deletedperson });
   } catch (error) {
     next(error);
   }
