@@ -4,13 +4,14 @@ const Person = require('../models/person');
 
 //GET (all)
 const getAll = async (personId) => {
-	const gifts = await Person.find({ personId }).gifts;
-	return gifts;
+	const person = await Person.findById(personId);
+	return person.gifts;
 };
 
 // GET
 const getOne = async (personId, giftId) => {
-	const foundGift = await Person.findById(personId).gifts.findById(giftId);
+	const person = await Person.findById(personId);
+	const foundGift = person.gifts.id(giftId);
 	if (!foundGift) throw new NotFoundError(`Gift with id ${id} not found`);
 	return foundGift;
 };
@@ -21,7 +22,7 @@ const create = async (personId, giftData) => {
 		personId,
 		{
 			$addToSet: {
-				abilities: giftData,
+				gifts: giftData,
 			},
 		},
 		{
@@ -29,7 +30,7 @@ const create = async (personId, giftData) => {
 		}
 	);
 
-	return updatedPerson.abilities[updatedPerson.abilities.length - 1];
+	return updatedPerson.gifts[updatedPerson.gifts.length - 1];
 };
 
 // PATCH
@@ -40,7 +41,7 @@ const update = async (personId, giftId, giftData) => {
 		updateObj[`gifts.$.${key}`] = giftData[key];
 	});
 
-	const updatedPerson = await Gift.findOneAndUpdate(
+	const updatedPerson = await Person.findOneAndUpdate(
 		{ _id: personId, 'gifts._id': giftId },
 		{
 			$set: updateObj,
@@ -54,31 +55,30 @@ const update = async (personId, giftId, giftData) => {
 	return updatedPerson.gifts.find((gift) => gift._id.toString() === giftId);
 };
 
-// PUT
-const replace = async (personId, giftId, giftData) => {
-	if (!giftData.txt || !giftData.store || !giftData.url)
-		throw new BadRequestError('Gift idea, Store and URL are required');
+// DELETE (one)
 
-	const replacedPerson = await Person.findOneAndUpdate(
-		{ _id: personId, 'gifts._id': giftId },
+const deleteOne = async (personId, giftId) => {
+	const deletedGift = await Person.findByIdAndUpdate(
+		personId,
 		{
-			...giftData,
+			$pull: {
+				gifts: { _id: giftId },
+			},
 		},
 		{
-			returnOriginal: false,
+			new: true,
 		}
 	);
 
-	if (!replacedPerson)
-		throw new NotFoundError(`Person with id ${id} not found`);
+	if (!deletedGift) throw new NotFoundError(`Gift with id ${giftId} not found`);
 
-	return replacedPokemon;
+	return { message: `Gift with id ${giftId} has been deleted` };
 };
 
-// DELETE (one)
-
 module.exports = {
+	getAll,
+	getOne,
 	create,
 	update,
-	replace,
+	deleteOne,
 };
