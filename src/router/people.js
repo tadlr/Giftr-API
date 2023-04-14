@@ -6,14 +6,13 @@ const isAuthenticated = require("../middleware/isAuthenticated");
 
 const PeopleRouter = Router();
 
+/*** It checks that the user is logged-in, ***/
 PeopleRouter.use(isAuthenticated);
 PeopleRouter.get("/", PeopleController.getAll);
 PeopleRouter.get("/:id", PeopleController.getOne);
-
-/*** It checks that the user is logged-in, ***/
-// PeopleRouter.post("/", PeopleController.create);
-// PeopleRouter.put("/:id", PeopleController.replace);
-// PeopleRouter.patch("/:id", PeopleController.update);
-// PeopleRouter.delete("/:id", PeopleController.deleteOne);
+PeopleRouter.post("/", PeopleController.create);
+PeopleRouter.put("/:id", PeopleController.replace);
+PeopleRouter.patch("/:id", PeopleController.update);
+PeopleRouter.delete("/:id", PeopleController.deleteOne);
 
 module.exports = PeopleRouter;
