@@ -75,7 +75,7 @@ const replace = async (req, res, next) => {
 
 // DELETE (one)
 const deleteOne = async (req, res, next) => {
-  const { id: personId, giftId: giftId } = req.params;
+	const { id: personId, giftId: giftId } = req.params;
 	try {
 		const deletedgift = await GiftService.deleteOne(personId, giftId);
 		res.json({ data: deletedgift });

@@ -4,8 +4,8 @@ const Person = require('../models/person');
 
 //GET (all)
 const getAll = async (personId) => {
-	const gifts = await Person.find({ personId }).gifts;
-	return gifts;
+	const person = await Person.findById(personId);
+	return person.gifts;
 };
 
 // GET
@@ -21,7 +21,7 @@ const create = async (personId, giftData) => {
 		personId,
 		{
 			$addToSet: {
-				abilities: giftData,
+				gifts: giftData,
 			},
 		},
 		{
@@ -29,7 +29,7 @@ const create = async (personId, giftData) => {
 		}
 	);
 
-	return updatedPerson.abilities[updatedPerson.abilities.length - 1];
+	return updatedPerson.gifts[updatedPerson.gifts.length - 1];
 };
 
 // PATCH
@@ -69,8 +69,7 @@ const replace = async (personId, giftId, giftData) => {
 		}
 	);
 
-	if (!replacedPerson)
-		throw new NotFoundError(`Gift with id ${id} not found`);
+	if (!replacedPerson) throw new NotFoundError(`Gift with id ${id} not found`);
 
 	return replacedPokemon;
 };
