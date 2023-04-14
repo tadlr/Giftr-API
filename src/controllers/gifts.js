@@ -84,6 +84,10 @@ const deleteOne = async (req, res, next) => {
 };
 
 module.exports = {
+	getAll,
+	getOne,
 	create,
+	replace,
 	update,
+	deleteOne,
 };
