@@ -86,7 +86,10 @@ const deleteOne = async (personId, giftId) => {
 };
 
 module.exports = {
+	getAll,
+	getOne,
 	create,
 	update,
 	replace,
+	deleteOne,
 };
