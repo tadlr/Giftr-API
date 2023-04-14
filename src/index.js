@@ -20,6 +20,14 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
+app.use(helmet());
+app.use(compression());
+app.use(expressSanitize());
+app.use(
+  cors({
+    origin: process.env.CORS_WHITELIST.split(","),
+  })
+);
 app.use(express.json());
 app.use(morgan("tiny"));
 
@@ -39,10 +47,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/", (_req, res) => res.send("Server running =D"));
+app.get("/", (_req, res) => res.send("Server running"));
 app.use("/auth", authRouter);
 app.use("/api/people", sanitizeBody, peopleRouter);
-// app.use("/api/people/:id", sanitizeBody, giftsRouter);
 
 app.use(errorHandler);
 
