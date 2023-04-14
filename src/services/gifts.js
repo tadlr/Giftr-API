@@ -70,12 +70,20 @@ const replace = async (personId, giftId, giftData) => {
 	);
 
 	if (!replacedPerson)
-		throw new NotFoundError(`Person with id ${id} not found`);
+		throw new NotFoundError(`Gift with id ${id} not found`);
 
 	return replacedPokemon;
 };
 
 // DELETE (one)
+
+const deleteOne = async (personId, giftId) => {
+	const deletedGift = await Person.find(personId).findByIdAndDelete(giftId);
+
+	if (!deletedGift) throw new NotFoundError(`Gift with id ${id} not found`);
+
+	return deletedGift;
+};
 
 module.exports = {
 	create,
