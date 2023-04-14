@@ -19,9 +19,9 @@ const getOne = async (req, res, next) => {
 	try {
 		//TODO: we need to make sure that the gifts belong to the person who owns them
 		// look at create service and controller
-		// const { id: personId } = req.params;
-		// const gifts = await GiftService.getOne(req.params.giftId, personId);
-		const gifts = await GiftService.getOne(req.params.giftId);
+		const { id: personId, giftId: giftId } = req.params;
+		const gifts = await GiftService.getOne(personId, giftId);
+		// const gifts = await GiftService.getOne(req.params.giftId);
 		res.json({ data: gifts });
 	} catch (error) {
 		next(error);
@@ -43,7 +43,7 @@ const create = async (req, res, next) => {
 
 // PATCH
 const update = async (req, res, next) => {
-	const { id: personId, giftId } = req.params;
+	const { id: personId, giftId: giftId } = req.params;
 
 	try {
 		const updatedGift = await GiftService.update(
@@ -60,7 +60,7 @@ const update = async (req, res, next) => {
 
 // PUT
 const replace = async (req, res, next) => {
-	const { id: personId, giftId } = req.params;
+	const { id: personId, giftId: giftId } = req.params;
 	try {
 		const replacedGift = await GiftService.replace(
 			personId,
@@ -75,8 +75,9 @@ const replace = async (req, res, next) => {
 
 // DELETE (one)
 const deleteOne = async (req, res, next) => {
+  const { id: personId, giftId: giftId } = req.params;
 	try {
-		const deletedgift = await GiftService.deleteOne(req.params.giftId);
+		const deletedgift = await GiftService.deleteOne(personId, giftId);
 		res.json({ data: deletedgift });
 	} catch (error) {
 		next(error);
