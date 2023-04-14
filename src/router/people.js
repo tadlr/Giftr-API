@@ -6,7 +6,7 @@ const isAuthenticated = require("../middleware/isAuthenticated");
 
 const PeopleRouter = Router();
 
-// PeopleRouter.use(isAuthenticated);
+PeopleRouter.use(isAuthenticated);
 PeopleRouter.get("/", PeopleController.getAll);
 PeopleRouter.get("/:id", PeopleController.getOne);
 

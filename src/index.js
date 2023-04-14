@@ -1,22 +1,24 @@
 "use strict";
 
 require("dotenv/config");
+const cors = require("cors");
 const express = require("express");
 const MongoStore = require("connect-mongo");
 const morgan = require("morgan");
 const passport = require("passport");
 const session = require("express-session");
+const compression = require("compression");
+const helmet = require("helmet");
+const expressSanitize = require("express-mongo-sanitize");
+
 const peopleRouter = require("./router/people");
 const { errorHandler } = require("./utils/errors");
 const authRouter = require("./router/auth");
 const sanitizeBody = require("./middleware/sanitizeBody");
+
 require("./utils/db");
 
-const port = process.env.PORT || 3000;
-
-// TODO: install the following modules
-// TODO: import helmet
-// TODO: import cors
+const port = process.env.PORT || 3001;
 
 const app = express();
 
