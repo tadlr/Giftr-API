@@ -34,7 +34,7 @@ authRouter.get(
     // lookup the state from googl
     const { state } = req.query;
     // define redirectUrl from the state or default to '/api/pokemon'
-    const redirectUrl = state ?? "/api/pokemon"; // TODO: change the endpoint to /people
+    const redirectUrl = state ?? "/api/people";
 
     // get the user's id
     const id = req.user._id.toString();

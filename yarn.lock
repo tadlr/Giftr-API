@@ -269,9 +269,9 @@ destroy@1.2.0:
   integrity sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==
 
 dotenv@^16n.0.3:
-  version "16.1.0-rc1"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.1.0-rc1.tgz#110fb4a92d0ea040f9bd083a6f969b691ab83abc"
-  integrity sha512-T9ZpMsEro6BE9RMEkiOIcT8LD3H7fQAB4jbZqeLnwNRuKadH+WjuC+NXoyfdajInw13Ooq2Hni+3fp2p/PV3KQ==
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
+  integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
 
 ecdsa-sig-formatter@1.0.11:
   version "1.0.11"
