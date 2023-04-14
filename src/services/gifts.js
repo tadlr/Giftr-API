@@ -2,6 +2,19 @@
 
 const Person = require('../models/person');
 
+//GET (all)
+const getAll = async (personId) => {
+	const gifts = await Person.find({ personId }).gifts;
+	return gifts;
+};
+
+// GET
+const getOne = async (personId, giftId) => {
+	const foundGift = await Person.findById(personId).gifts.findById(giftId);
+	if (!foundGift) throw new NotFoundError(`Gift with id ${id} not found`);
+	return foundGift;
+};
+
 // POST
 const create = async (personId, giftData) => {
 	const updatedPerson = await Person.findByIdAndUpdate(
@@ -38,14 +51,12 @@ const update = async (personId, giftId, giftData) => {
 		}
 	);
 
-	return updatedPerson.gifts.find(
-		(gift) => gift._id.toString() === giftId
-	);
+	return updatedPerson.gifts.find((gift) => gift._id.toString() === giftId);
 };
 
 // PUT
-const replace = async(personId, giftId, giftData) => {
-  if (!giftData.txt || !giftData.store || !giftData.url)
+const replace = async (personId, giftId, giftData) => {
+	if (!giftData.txt || !giftData.store || !giftData.url)
 		throw new BadRequestError('Gift idea, Store and URL are required');
 
 	const replacedPerson = await Person.findOneAndUpdate(
@@ -62,10 +73,12 @@ const replace = async(personId, giftId, giftData) => {
 		throw new NotFoundError(`Person with id ${id} not found`);
 
 	return replacedPokemon;
-}
+};
+
+// DELETE (one)
 
 module.exports = {
 	create,
 	update,
-  replace,
+	replace,
 };
