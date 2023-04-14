@@ -10,7 +10,8 @@ const getAll = async (personId) => {
 
 // GET
 const getOne = async (personId, giftId) => {
-	const foundGift = await Person.findById(personId).gifts.findById(giftId);
+	const person = await Person.findById(personId);
+	const foundGift = person.gifts.id(giftId);
 	if (!foundGift) throw new NotFoundError(`Gift with id ${id} not found`);
 	return foundGift;
 };
@@ -40,7 +41,7 @@ const update = async (personId, giftId, giftData) => {
 		updateObj[`gifts.$.${key}`] = giftData[key];
 	});
 
-	const updatedPerson = await Gift.findOneAndUpdate(
+	const updatedPerson = await Person.findOneAndUpdate(
 		{ _id: personId, 'gifts._id': giftId },
 		{
 			$set: updateObj,
@@ -54,34 +55,24 @@ const update = async (personId, giftId, giftData) => {
 	return updatedPerson.gifts.find((gift) => gift._id.toString() === giftId);
 };
 
-// PUT
-const replace = async (personId, giftId, giftData) => {
-	if (!giftData.txt || !giftData.store || !giftData.url)
-		throw new BadRequestError('Gift idea, Store and URL are required');
-
-	const replacedPerson = await Person.findOneAndUpdate(
-		{ _id: personId, 'gifts._id': giftId },
-		{
-			...giftData,
-		},
-		{
-			returnOriginal: false,
-		}
-	);
-
-	if (!replacedPerson) throw new NotFoundError(`Gift with id ${id} not found`);
-
-	return replacedPokemon;
-};
-
 // DELETE (one)
 
 const deleteOne = async (personId, giftId) => {
-	const deletedGift = await Person.find(personId).findByIdAndDelete(giftId);
+	const deletedGift = await Person.findByIdAndUpdate(
+		personId,
+		{
+			$pull: {
+				gifts: { _id: giftId },
+			},
+		},
+		{
+			new: true,
+		}
+	);
 
-	if (!deletedGift) throw new NotFoundError(`Gift with id ${id} not found`);
+	if (!deletedGift) throw new NotFoundError(`Gift with id ${giftId} not found`);
 
-	return deletedGift;
+	return { message: `Gift with id ${giftId} has been deleted` };
 };
 
 module.exports = {
@@ -89,6 +80,5 @@ module.exports = {
 	getOne,
 	create,
 	update,
-	replace,
 	deleteOne,
 };
