@@ -6,11 +6,11 @@ const isAuthenticated = require("../middleware/isAuthenticated");
 
 const PeopleRouter = Router();
 
+// PeopleRouter.use(isAuthenticated);
 PeopleRouter.get("/", PeopleController.getAll);
 PeopleRouter.get("/:id", PeopleController.getOne);
 
 /*** It checks that the user is logged-in, ***/
-// PeopleRouter.use(isAuthenticated);
 // PeopleRouter.post("/", PeopleController.create);
 // PeopleRouter.put("/:id", PeopleController.replace);
 // PeopleRouter.patch("/:id", PeopleController.update);
