@@ -53,6 +53,16 @@ Using Node.js, Express, Mongoose and MongoDB, you will build the RESTful API web
 }
 ```
 
+{
+  "data": [
+    {
+      "txt": "string",
+      "store": "string",
+      "url": "string"
+    }
+  ]
+}
+
 ### Example Errors Response
 
 `GET /api/people/[bad_id]`
