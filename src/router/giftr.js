@@ -20,7 +20,7 @@ GiftrRouter.delete('/:id', PeopleController.deleteOne);
 /* Gift routes */
 GiftrRouter.get('/:id/gifts', GiftsController.getAll);
 GiftrRouter.get('/:id/gifts/:giftId', GiftsController.getOne);
-// GiftrRouter.post("/person/:id/gifts", GiftsController.create);
+GiftrRouter.post('/:id/gifts', GiftsController.create);
 // GiftrRouter.put("/:id", GiftsController.replace);
 // GiftrRouter.patch("/:id", GiftsController.update);
 // GiftrRouter.delete("/:id", GiftsController.deleteOne);
