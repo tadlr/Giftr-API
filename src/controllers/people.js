@@ -53,8 +53,8 @@ const update = async (req, res, next) => {
 
 const deleteOne = async (req, res, next) => {
   try {
-    const deletedpeople = await PeopleService.deleteOne(req.params.id);
-    res.json({ data: deletedpeople });
+    const deletedperson = await PeopleService.deleteOne(req.params.id);
+    res.json({ data: deletedperson });
   } catch (error) {
     next(error);
   }
