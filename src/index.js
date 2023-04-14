@@ -39,7 +39,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/", (_req, res) => res.send("Server running"));
+app.get("/", (_req, res) => res.send("Server running =D"));
 app.use("/auth", authRouter);
 app.use("/api/people", sanitizeBody, peopleRouter);
 // app.use("/api/people/:id", sanitizeBody, giftsRouter);

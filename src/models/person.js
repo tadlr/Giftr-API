@@ -15,7 +15,6 @@ const personSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      default: "", //TODO: Ask about default user.
     },
     gifts: [],
   },

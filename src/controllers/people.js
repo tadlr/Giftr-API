@@ -1,8 +1,9 @@
 const PeopleService = require("../services/people");
 
-const getAll = async (_req, res, next) => {
+const getAll = async (req, res, next) => {
   try {
-    const people = await PeopleService.getAll();
+    const { _id: ownerId } = req.user;
+    const people = await PeopleService.getAll({ ownerId });
     res.json({ data: people });
   } catch (error) {
     next(error);
@@ -21,7 +22,8 @@ const getOne = async (req, res, next) => {
 const create = async (req, res, next) => {
   try {
     const { name, dob } = req.body; //TODO: Ask how to get the ownerId
-    const createdPeople = await PeopleService.create(name, dob, req.user._id);
+    const { _id: ownerId } = req.user;
+    const createdPeople = await PeopleService.create({ name, dob, ownerId });
     res.status(201).json({ data: createdPeople });
   } catch (error) {
     next(error);
