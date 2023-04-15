@@ -17,11 +17,8 @@ const getAll = async (req, res, next) => {
 const getOne = async (req, res, next) => {
 	// people/:id/gifts/:giftId
 	try {
-		//TODO: we need to make sure that the gifts belong to the person who owns them
-		// look at create service and controller
 		const { id: personId, giftId: giftId } = req.params;
 		const gifts = await GiftService.getOne(personId, giftId);
-		// const gifts = await GiftService.getOne(req.params.giftId);
 		res.json({ data: gifts });
 	} catch (error) {
 		next(error);
