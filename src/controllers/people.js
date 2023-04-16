@@ -4,7 +4,7 @@ const getAll = async (req, res, next) => {
   try {
     const { _id: ownerId } = req.user;
     const people = await PeopleService.getAll(ownerId);
-    res.json({ data: people });
+    res.json(people);
   } catch (error) {
     next(error);
   }
@@ -13,7 +13,7 @@ const getAll = async (req, res, next) => {
 const getOne = async (req, res, next) => {
   try {
     const people = await PeopleService.getOne(req.params.id);
-    res.json({ data: people });
+    res.json(people);
   } catch (error) {
     next(error);
   }
@@ -26,7 +26,7 @@ const create = async (req, res, next) => {
 
     const createdPeople = await PeopleService.create({ name, dob, ownerId });
 
-    res.status(201).json({ data: createdPeople });
+    res.status(201).json(createdPeople);
   } catch (error) {
     next(error);
   }
@@ -35,7 +35,7 @@ const create = async (req, res, next) => {
 const replace = async (req, res, next) => {
   try {
     const replacedPeople = await PeopleService.replace(req.params.id, req.body);
-    res.json({ data: replacedPeople });
+    res.json(replacedPeople);
   } catch (error) {
     next(error);
   }
@@ -45,7 +45,7 @@ const update = async (req, res, next) => {
   try {
     const updatedPeople = await PeopleService.update(req.params.id, req.body);
 
-    res.json({ data: updatedPeople });
+    res.json(updatedPeople);
   } catch (error) {
     next(error);
   }
@@ -54,7 +54,7 @@ const update = async (req, res, next) => {
 const deleteOne = async (req, res, next) => {
   try {
     const deletedperson = await PeopleService.deleteOne(req.params.id);
-    res.json({ data: deletedperson });
+    res.json(deletedperson);
   } catch (error) {
     next(error);
   }
