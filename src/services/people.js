@@ -4,7 +4,7 @@ const Person = require('../models/person');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
 
 const getAll = async (ownerId) => {
-	const people = await Person.find({ ownerId });
+	const people = await Person.find({ ownerId }).select('name dob');
 	return people;
 };
 
