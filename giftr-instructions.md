@@ -5,7 +5,7 @@ Using Node.js, Express, Mongoose and MongoDB, you will build the RESTful API web
 - [x] Each registered user can create a list of people for whom they are collecting gift ideas.
 - [x] The user can then add one or more gift ideas for each person on their list.
 
-- [ ] PoC will allow authenticated users to perform basic CRUD operations on two primary resources: PEOPLE and GIFTS 
+- [x] PoC will allow authenticated users to perform basic CRUD operations on two primary resources: PEOPLE and GIFTS 
 - [x] The PERSON model represent the people for whom you are collecting
 - [x] gift ideas and will have an array of embedded GIFT models
 - [x] GIFTS will have an ownerId relationship to the owning User model
@@ -24,7 +24,7 @@ Using Node.js, Express, Mongoose and MongoDB, you will build the RESTful API web
 - [ ] Single resource requests should return any related resources as fully populated embedded documents.
 
 - [ ] Resource list requests should return an array of the primary resource objects only, without populating any related objects 
-(PEOPLE/GIFTS)
+(PEOPLE/GIFTS) - TODO: add VALIDATION TO GIFTS BELONGING TO OWNER
 
 - [x] All requests containing user/client supplied data should be sanitized to protect against XSS and Query Injection attacks.
 
@@ -33,9 +33,9 @@ Using Node.js, Express, Mongoose and MongoDB, you will build the RESTful API web
 ## Response Payload
 
 - [x] All responses will be in the form of a JSON formatted object.
-- [?] *This payload object must include one of (but not both at the same time) a data property or an error property.* (data: returnedData)
-- [?] *For "list" routes, the data property must be populated an array of zero or more of the requested resource objects.*
-- [?] For "retrieve" routes, the data property must be populated with a single resource object.
+- [x] *This payload object must include one of (but not both at the same time) a data property or an error property.* (data: returnedData)
+- [x] *For "list" routes, the data property must be populated an array of zero or more of the requested resource objects.*
+- [x] For "retrieve" routes, the data property must be populated with a single resource object.
 - [x] If the requested single resource, or sub-resource (embedded document) does not exist, a 404 error response should be sent.
 
 ### Example Data Response
