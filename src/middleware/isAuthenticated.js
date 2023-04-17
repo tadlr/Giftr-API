@@ -7,7 +7,7 @@ const { UnauthorizedError, NotFoundError } = require('../utils/errors');
 
 const isAuthenticated = async (req, res, next) => {
 	// look up token in headers
-	const rawToken = req.query.token ?? req.headers.authorization;
+	const rawToken = req.headers.authorization;
 
 	const token = rawToken?.replace('Bearer ', '');
 

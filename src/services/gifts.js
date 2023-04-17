@@ -13,6 +13,7 @@ const getOne = async (personId, giftId) => {
 	const person = await Person.findById(personId);
 	const foundGift = person.gifts.id(giftId);
 	if (!foundGift) throw new NotFoundError(`Gift with id ${id} not found`);
+	//TODO: if personId not right then it's not your gift
 	return foundGift;
 };
 
