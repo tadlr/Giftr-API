@@ -8,7 +8,7 @@ const getAll = async (req, res, next) => {
     // people/:id
     const { id: personId } = req.params;
     const gifts = await GiftService.getAll(personId);
-    res.json(gifts);
+    res.json({data: gifts});
   } catch (error) {
     next(error);
   }
@@ -19,7 +19,7 @@ const getOne = async (req, res, next) => {
   try {
     const { id: personId, giftId: giftId } = req.params;
     const gifts = await GiftService.getOne(personId, giftId);
-    res.json(gifts);
+    res.json({ data: gifts });
   } catch (error) {
     next(error);
   }
@@ -32,7 +32,7 @@ const create = async (req, res, next) => {
   try {
     const createdGift = await GiftService.create(personId, req.sanitizedBody);
 
-    res.json(createdGift);
+    res.json({data: createdGift});
   } catch (error) {
     next(error);
   }
@@ -49,7 +49,7 @@ const update = async (req, res, next) => {
       req.sanitizedBody
     );
 
-    res.json(updatedGift);
+    res.json({data: updatedGift});
   } catch (error) {
     next(error);
   }
@@ -64,7 +64,7 @@ const replace = async (req, res, next) => {
       giftId,
       req.sanitizedBody
     );
-    res.json(replacedGift);
+    res.json({data: replacedGift});
   } catch (error) {
     next(error);
   }
@@ -75,7 +75,7 @@ const deleteOne = async (req, res, next) => {
   const { id: personId, giftId: giftId } = req.params;
   try {
     const deletedgift = await GiftService.deleteOne(personId, giftId);
-    res.json(deletedgift);
+    res.json({data: deletedgift});
   } catch (error) {
     next(error);
   }
