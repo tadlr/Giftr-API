@@ -1,6 +1,7 @@
 'use strict';
 
 const Person = require('../models/person');
+const { BadRequestError, NotFoundError } = require('../utils/errors');
 
 //GET (all)
 const getAll = async (personId) => {
@@ -12,7 +13,8 @@ const getAll = async (personId) => {
 const getOne = async (personId, giftId) => {
 	const person = await Person.findById(personId);
 	const foundGift = person.gifts.id(giftId);
-	if (!foundGift) throw new NotFoundError(`Gift with id ${id} not found`);
+	console.log(!foundGift);
+	if (!foundGift) throw new NotFoundError(`Gift with id ${giftId} not found`);
 	//TODO: if personId not right then it's not your gift
 	return foundGift;
 };
@@ -37,6 +39,9 @@ const create = async (personId, giftData) => {
 // PATCH
 const update = async (personId, giftId, giftData) => {
 	const updateObj = {};
+
+	if (!Object.keys(giftData).length)
+		throw new BadRequestError('Nothing to update');
 
 	Object.keys(giftData).forEach((key) => {
 		updateObj[`gifts.$.${key}`] = giftData[key];
