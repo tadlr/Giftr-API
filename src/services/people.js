@@ -82,6 +82,7 @@ const update = async (id, ownerId, updatedFields) => {
 };
 
 const deleteOne = async (id) => {
+	// ask Tim about authorization error here
   const deletedPerson = await Person.findByIdAndDelete(id);
 
   if (!deletedPerson) throw new NotFoundError(`Person with id ${id} not found`);
