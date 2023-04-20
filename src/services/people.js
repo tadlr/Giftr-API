@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const Person = require('../models/person');
 const {
@@ -22,12 +22,13 @@ const getOne = async (id, ownerId) => {
 
 	if (!foundPerson) throw new NotFoundError(`Person with id ${id} not found`);
 	return foundPerson;
+
 };
 
 const create = async (personData) => {
-	const newPerson = new Person(personData);
-	await newPerson.save();
-	return newPerson;
+  const newPerson = new Person(personData);
+  await newPerson.save();
+  return newPerson;
 };
 
 const replace = async (id, ownerId, personData) => {
@@ -54,39 +55,40 @@ const replace = async (id, ownerId, personData) => {
 		throw new NotFoundError(`Person with id ${id} not found`);
 
 	return replacedPerson;
+
 };
 
 const update = async (id, updatedFields) => {
-	if (!Object.keys(updatedFields).length)
-		throw new BadRequestError('Nothing to update');
-	const updatedPerson = await Person.findByIdAndUpdate(
-		id,
-		{
-			...updatedFields,
-		},
-		{
-			returnOriginal: false,
-		}
-	);
+  if (!Object.keys(updatedFields).length)
+    throw new BadRequestError("Nothing to update");
+  const updatedPerson = await Person.findByIdAndUpdate(
+    id,
+    {
+      ...updatedFields,
+    },
+    {
+      returnOriginal: false,
+    }
+  );
 
-	if (!updatedPerson) throw new NotFoundError(`Person with id ${id} not found`);
+  if (!updatedPerson) throw new NotFoundError(`Person with id ${id} not found`);
 
-	return updatedPerson;
+  return updatedPerson;
 };
 
 const deleteOne = async (id) => {
-	const deletedPerson = await Person.findByIdAndDelete(id);
+  const deletedPerson = await Person.findByIdAndDelete(id);
 
-	if (!deletedPerson) throw new NotFoundError(`Person with id ${id} not found`);
+  if (!deletedPerson) throw new NotFoundError(`Person with id ${id} not found`);
 
-	return deletedPerson;
+  return deletedPerson;
 };
 
 module.exports = {
-	getAll,
-	getOne,
-	create,
-	replace,
-	update,
-	deleteOne,
+  getAll,
+  getOne,
+  create,
+  replace,
+  update,
+  deleteOne,
 };

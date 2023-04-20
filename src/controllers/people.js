@@ -37,6 +37,7 @@ const replace = async (req, res, next) => {
   try {
     const { _id: ownerId } = req.user;
     const replacedPeople = await PeopleService.replace(req.params.id, ownerId, req.body);
+
     res.json({ data: replacedPeople });
   } catch (error) {
     next(error);
