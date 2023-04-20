@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const Person = require('../models/person');
 const {
@@ -8,7 +8,7 @@ const {
 } = require('../utils/errors');
 
 const getAll = async (ownerId) => {
-	const people = await Person.find({ ownerId }).select('name dob gifts');
+	const people = await Person.find({ ownerId }).select('name dob');
 	return people;
 };
 
@@ -22,13 +22,12 @@ const getOne = async (id, ownerId) => {
 
 	if (!foundPerson) throw new NotFoundError(`Person with id ${id} not found`);
 	return foundPerson;
-
 };
 
 const create = async (personData) => {
-  const newPerson = new Person(personData);
-  await newPerson.save();
-  return newPerson;
+	const newPerson = new Person(personData);
+	await newPerson.save();
+	return newPerson;
 };
 
 const replace = async (id, ownerId, personData) => {
@@ -55,7 +54,6 @@ const replace = async (id, ownerId, personData) => {
 		throw new NotFoundError(`Person with id ${id} not found`);
 
 	return replacedPerson;
-
 };
 
 const update = async (id, ownerId, updatedFields) => {
@@ -76,25 +74,25 @@ const update = async (id, ownerId, updatedFields) => {
 		);
 	}
 
-  if (!updatedPerson) throw new NotFoundError(`Person with id ${id} not found`);
+	if (!updatedPerson) throw new NotFoundError(`Person with id ${id} not found`);
 
-  return updatedPerson;
+	return updatedPerson;
 };
 
 const deleteOne = async (id) => {
 	// ask Tim about authorization error here
-  const deletedPerson = await Person.findByIdAndDelete(id);
+	const deletedPerson = await Person.findByIdAndDelete(id);
 
-  if (!deletedPerson) throw new NotFoundError(`Person with id ${id} not found`);
+	if (!deletedPerson) throw new NotFoundError(`Person with id ${id} not found`);
 
-  return deletedPerson;
+	return deletedPerson;
 };
 
 module.exports = {
-  getAll,
-  getOne,
-  create,
-  replace,
-  update,
-  deleteOne,
+	getAll,
+	getOne,
+	create,
+	replace,
+	update,
+	deleteOne,
 };
