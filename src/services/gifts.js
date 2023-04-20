@@ -12,7 +12,7 @@ const getAll = async (personId) => {
 // GET
 const getOne = async (personId, giftId) => {
 	const person = await Person.findById(personId);
-	if (!person) throw new NotFoundError(`Person with id ${giftId} not found`);
+	if (!person) throw new NotFoundError(`Person with id ${personId} not found`);
 
 	const foundGift = person.gifts.id(giftId);
 	if (!foundGift) throw new NotFoundError(`Gift with id ${giftId} not found`);
