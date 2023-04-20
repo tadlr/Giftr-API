@@ -1,16 +1,23 @@
 "use strict";
 
 const Person = require("../models/person");
-const { BadRequestError, NotFoundError } = require("../utils/errors");
+const {
+  BadRequestError,
+  NotFoundError,
+  UnauthorizedError,
+} = require("../utils/errors");
 
 const getAll = async (ownerId) => {
   const people = await Person.find({ ownerId }).select("name dob gifts");
-
   return people;
 };
 
-const getOne = async (id) => {
+const getOne = async (id, ownerId) => {
   const foundPerson = await Person.findById(id);
+  if (foundPerson.ownerId.toString() != ownerId.toString()) {
+    throw new UnauthorizedError("This is not yours!!");
+  }
+
   if (!foundPerson) throw new NotFoundError(`Person with id ${id} not found`);
   return foundPerson;
 };
