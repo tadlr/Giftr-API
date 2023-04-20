@@ -12,10 +12,11 @@ const getAll = async (personId) => {
 // GET
 const getOne = async (personId, giftId) => {
 	const person = await Person.findById(personId);
+	if (!person) throw new NotFoundError(`Person with id ${giftId} not found`);
+
 	const foundGift = person.gifts.id(giftId);
-	console.log(!foundGift);
 	if (!foundGift) throw new NotFoundError(`Gift with id ${giftId} not found`);
-	//TODO: if personId not right then it's not your gift
+	
 	return foundGift;
 };
 
@@ -32,7 +33,10 @@ const create = async (personId, giftData) => {
 			returnOriginal: false,
 		}
 	);
-
+	if (!updatedPerson)
+		throw new NotFoundError(
+			`Person with id ${personId} not found and so could not create new gift.`
+		);
 	return updatedPerson.gifts[updatedPerson.gifts.length - 1];
 };
 
@@ -57,8 +61,16 @@ const update = async (personId, giftId, giftData) => {
 			runValidators: true,
 		}
 	);
+	if (!updatedPerson)
+		throw new NotFoundError(
+			`Person with id ${personId} and ${giftId} could not found and so could not update gift.`
+		);
 
-	return updatedPerson.gifts.find((gift) => gift._id.toString() === giftId);
+	const updatedGift = updatedPerson.gifts.find(
+		(gift) => gift._id.toString() === giftId
+	);
+
+	return updatedGift;
 };
 
 // DELETE (one)
