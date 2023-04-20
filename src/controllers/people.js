@@ -46,8 +46,8 @@ const replace = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const updatedPeople = await PeopleService.update(req.params.id, req.body);
-
+    const { _id: ownerId } = req.user;
+    const updatedPeople = await PeopleService.update(req.params.id, ownerId, req.body);
     res.json({ data: updatedPeople });
   } catch (error) {
     next(error);

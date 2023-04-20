@@ -58,18 +58,23 @@ const replace = async (id, ownerId, personData) => {
 
 };
 
-const update = async (id, updatedFields) => {
-  if (!Object.keys(updatedFields).length)
-    throw new BadRequestError("Nothing to update");
-  const updatedPerson = await Person.findByIdAndUpdate(
-    id,
-    {
-      ...updatedFields,
-    },
-    {
-      returnOriginal: false,
-    }
-  );
+const update = async (id, ownerId, updatedFields) => {
+	if (!Object.keys(updatedFields).length)
+		throw new BadRequestError('Nothing to update');
+	const updatedPerson = await Person.findByIdAndUpdate(
+		id,
+		{
+			...updatedFields,
+		},
+		{
+			returnOriginal: false,
+		}
+	);
+	if (updatedPerson.ownerId.toString() != ownerId.toString()) {
+		throw new UnauthorizedError(
+			'You are not authorized to access this person.'
+		);
+	}
 
   if (!updatedPerson) throw new NotFoundError(`Person with id ${id} not found`);
 
