@@ -8,7 +8,7 @@ const {
 } = require('../utils/errors');
 
 const getAll = async (ownerId) => {
-	const people = await Person.find({ ownerId }).select('name dob');
+	const people = await Person.find({ ownerId });
 	return people;
 };
 
