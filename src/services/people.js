@@ -12,13 +12,8 @@ const getAll = async (ownerId) => {
 	return people;
 };
 
-const getOne = async (id, ownerId) => {
+const getOne = async (id) => {
 	const foundPerson = await Person.findById(id);
-	if (foundPerson.ownerId.toString() != ownerId.toString()) {
-		throw new UnauthorizedError(
-			'You are not authorized to access this person.'
-		);
-	}
 
 	if (!foundPerson) throw new NotFoundError(`Person with id ${id} not found`);
 	return foundPerson;
@@ -30,7 +25,7 @@ const create = async (personData) => {
 	return newPerson;
 };
 
-const replace = async (id, ownerId, personData) => {
+const replace = async (id, personData) => {
 	if (!personData.name || !personData.dob)
 		throw new BadRequestError('Name and Date Of Birth (dob) are required');
 
@@ -44,19 +39,13 @@ const replace = async (id, ownerId, personData) => {
 		}
 	);
 
-	if (replacedPerson.ownerId.toString() != ownerId.toString()) {
-		throw new UnauthorizedError(
-			'You are not authorized to access this person.'
-		);
-	}
-
 	if (!replacedPerson)
 		throw new NotFoundError(`Person with id ${id} not found`);
 
 	return replacedPerson;
 };
 
-const update = async (id, ownerId, updatedFields) => {
+const update = async (id, updatedFields) => {
 	if (!Object.keys(updatedFields).length)
 		throw new BadRequestError('Nothing to update');
 	const updatedPerson = await Person.findByIdAndUpdate(
@@ -68,11 +57,6 @@ const update = async (id, ownerId, updatedFields) => {
 			returnOriginal: false,
 		}
 	);
-	if (updatedPerson.ownerId.toString() != ownerId.toString()) {
-		throw new UnauthorizedError(
-			'You are not authorized to access this person.'
-		);
-	}
 
 	if (!updatedPerson) throw new NotFoundError(`Person with id ${id} not found`);
 

@@ -20,8 +20,7 @@ const getAll = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
 	try {
-		const { _id: ownerId } = req.user;
-		const people = await PeopleService.getOne(req.params.id, ownerId);
+		const people = await PeopleService.getOne(req.params.id);
 		res.json({ data: people });
 	} catch (error) {
 		next(error);
@@ -43,13 +42,7 @@ const create = async (req, res, next) => {
 
 const replace = async (req, res, next) => {
 	try {
-		const { _id: ownerId } = req.user;
-		const replacedPeople = await PeopleService.replace(
-			req.params.id,
-			ownerId,
-			req.body
-		);
-
+		const replacedPeople = await PeopleService.replace(req.params.id, req.body);
 		res.json({ data: replacedPeople });
 	} catch (error) {
 		next(error);
@@ -58,12 +51,7 @@ const replace = async (req, res, next) => {
 
 const update = async (req, res, next) => {
 	try {
-		const { _id: ownerId } = req.user;
-		const updatedPeople = await PeopleService.update(
-			req.params.id,
-			ownerId,
-			req.body
-		);
+		const updatedPeople = await PeopleService.update(req.params.id, req.body);
 		res.json({ data: updatedPeople });
 	} catch (error) {
 		next(error);
